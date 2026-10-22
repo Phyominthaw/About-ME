@@ -104,7 +104,6 @@
                         Min Thaw (Kura)</span>
                 </h1>
 
-                <!-- အပေါ်ဆုံးနားက အရိပ်အမွှတ် (Top Secret Hint) -->
                 <div
                     class="inline-flex items-center gap-2.5 bg-slate-900/90 border border-cyan-500/40 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md">
                     <span class="text-pink-400 text-base animate-bounce">💡</span>
@@ -218,6 +217,18 @@
                 <div class="rounded-xl overflow-hidden border border-cyan-500/30 shadow-md col-span-2">
                     <img src="assets/images/photo9.jpg" alt="Extra 5" class="w-full h-32 object-cover">
                 </div>
+            </div>
+        </div>
+
+        <!-- Anniversary Live Counter & Special Date Box -->
+        <div
+            class="mb-12 p-6 bg-slate-900/80 border border-pink-500/40 rounded-2xl text-center shadow-lg backdrop-blur-md max-w-xl mx-auto space-y-2">
+            <p class="text-xs sm:text-sm text-pink-300 uppercase tracking-widest font-medium">Time We've Cherished
+                Together ♡</p>
+            <p class="text-xs text-cyan-300 italic">သော့ဆီကချစ်တယ်စပြောတဲ့ရက်စွဲလေး (22 Oct 2026, 5:15 PM)</p>
+            <div id="anniversary-counter"
+                class="text-base sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400 pt-1">
+                Loading...
             </div>
         </div>
 
@@ -649,6 +660,32 @@
         stackContainer.addEventListener('touchend', () => {
             isDragging = false;
         });
+
+        // Anniversary Live Counter Logic (22 Oct 2026, 5:15 PM Myanmar Time)
+        const startDate = new Date('2026-10-22T17:15:00+06:30');
+
+        function updateAnniversaryCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const counterElement = document.getElementById('anniversary-counter');
+            if (!counterElement) return;
+
+            if (diff < 0) {
+                counterElement.textContent = "Coming Soon ♡";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            counterElement.textContent = `${days} Days : ${hours} Hours : ${minutes} Mins : ${seconds} Secs`;
+        }
+
+        setInterval(updateAnniversaryCounter, 1000);
+        updateAnniversaryCounter();
 
         // Secret Triple-Click Feature for "About Me" navbar trigger
         const secretTrigger = document.getElementById('secret-trigger');

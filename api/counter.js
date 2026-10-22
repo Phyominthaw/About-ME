@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const token = process.env.COUNTER_API_TOKEN; // Vercel Environment Variable ထဲက ယူမည်
 
     try {
-        const response = await fetch('https://api.counterapi.dev/v1/phyominthaws-team/portfolio/up', {
+        const response = await fetch('https://api.counterapi.dev/v2/phyominthaws-team/portfolio/up', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`

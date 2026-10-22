@@ -553,13 +553,16 @@
         </div>
     </section>
 
+    <!-- FOOTER SECTION WITH HITCOUNTER BADGE -->
     <footer class="py-10 text-center text-xs text-slate-500 border-t border-slate-800/80 bg-slate-950/60 space-y-2">
         <p>© 2026 Phyo Min Thaw (Kura).</p>
         <p class="text-slate-400 italic">Some secrets are hidden in plain sight (Try clicking About Me multiple times).
         </p>
         <p id="visitor-count" class="text-slate-400 font-medium items-center justify-center gap-1.5"
             style="display: none;">
-            <span>👁️ Total Visits:</span> <span id="count" class="text-cyan-400 font-bold">Loading...</span>
+            <span>👁️ Total Visits:</span>
+            <img src="https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fkura-portolio.vercel.app"
+                alt="Visitor Count" class="inline-block ml-1 align-middle" />
         </p>
     </footer>
 
@@ -691,24 +694,14 @@
                 revealOnScroll.observe(reveal);
             });
 
+            // Admin ဖြစ်မှသာ Visitor Counter ကို ပြသရန်
             const urlParams = new URLSearchParams(window.location.search);
             const isAdmin = urlParams.get('admin') === 'true';
             const visitorCounterElement = document.getElementById('visitor-count');
 
-            fetch('/api/counter')
-                .then(response => response.json())
-                .then(data => {
-                    if (isAdmin) {
-                        visitorCounterElement.style.display = 'flex';
-                        document.getElementById('count').textContent = data.count.toLocaleString();
-                    }
-                })
-                .catch(error => {
-                    if (isAdmin) {
-                        visitorCounterElement.style.display = 'flex';
-                        document.getElementById('count').textContent = '1';
-                    }
-                });
+            if (isAdmin) {
+                visitorCounterElement.style.display = 'flex';
+            }
         });
     </script>
 </body>

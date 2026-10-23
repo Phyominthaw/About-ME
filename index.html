@@ -564,7 +564,7 @@
         </div>
     </section>
 
-    <!-- FOOTER SECTION WITH HITCOUNTER BADGE -->
+    <!-- HITCOUNTER BADGE -->
     <footer class="py-10 text-center text-xs text-slate-500 border-t border-slate-800/80 bg-slate-950/60 space-y-2">
         <p>© 2026 Phyo Min Thaw (Kura).</p>
         <p class="text-slate-400 italic">Some secrets are hidden in plain sight (Try clicking About Me multiple times).
@@ -731,7 +731,7 @@
                 revealOnScroll.observe(reveal);
             });
 
-            // Admin ဖြစ်မှသာ Visitor Counter ကို ပြသရန်
+            // Show visitor counter if Admin is ture 
             const urlParams = new URLSearchParams(window.location.search);
             const isAdmin = urlParams.get('admin') === 'true';
             const visitorCounterElement = document.getElementById('visitor-count');

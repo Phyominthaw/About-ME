@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phyo Min Thaw (Kura) | Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Vercel Web Analytics Script -->
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <style>
         .stack-card {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -731,13 +735,19 @@
                 revealOnScroll.observe(reveal);
             });
 
-            // Show visitor counter if Admin is ture 
+            // Password ဖြင့် ကာကွယ်ထားသော Admin Visitor Counter
             const urlParams = new URLSearchParams(window.location.search);
-            const isAdmin = urlParams.get('admin') === 'true';
             const visitorCounterElement = document.getElementById('visitor-count');
 
-            if (isAdmin) {
-                visitorCounterElement.style.display = 'flex';
+            if (urlParams.has('admin')) {
+                const password = prompt("Admin Password ထည့်ပါ:");
+                if (password === "Phy0MinTh@W146980") {
+                    if (visitorCounterElement) {
+                        visitorCounterElement.style.display = 'flex';
+                    }
+                } else {
+                    alert("စကားဝှက် မှားယွင်းနေပါသည်။");
+                }
             }
         });
     </script>

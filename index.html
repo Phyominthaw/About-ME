@@ -76,6 +76,24 @@
 <body
     class="bg-[#0b0f19] text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 relative overflow-x-hidden">
 
+    <!-- Custom Password Modal for Admin -->
+    <div id="admin-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-50"
+        style="display: none;">
+        <div
+            class="bg-slate-900 border border-cyan-500/50 p-8 rounded-3xl shadow-2xl max-w-sm w-full text-center space-y-5">
+            <h3 class="text-xl font-bold text-cyan-400">🔐 Admin Authentication</h3>
+            <p class="text-slate-400 text-sm">Type the password to access this website</p>
+            <input type="password" id="admin-pass-input" placeholder="Password ထည့်ပါ..."
+                class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-400 text-center">
+            <div class="flex gap-3">
+                <button id="admin-submit-btn"
+                    class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-3 rounded-xl transition">ဝင်မည်</button>
+                <button id="admin-cancel-btn"
+                    class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-xl transition">ပယ်ဖျက်မည်</button>
+            </div>
+        </div>
+    </div>
+
     <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -735,19 +753,39 @@
                 revealOnScroll.observe(reveal);
             });
 
-            // Password ဖြင့် ကာကွယ်ထားသော Admin Visitor Counter
+            // Custom Admin Password UI Logic
             const urlParams = new URLSearchParams(window.location.search);
             const visitorCounterElement = document.getElementById('visitor-count');
+            const adminModal = document.getElementById('admin-modal');
+            const adminPassInput = document.getElementById('admin-pass-input');
+            const adminSubmitBtn = document.getElementById('admin-submit-btn');
+            const adminCancelBtn = document.getElementById('admin-cancel-btn');
 
             if (urlParams.has('admin')) {
-                const password = prompt("Admin Password ထည့်ပါ:");
-                if (password === "Phy0MinTh@W146980") {
-                    if (visitorCounterElement) {
-                        visitorCounterElement.style.display = 'flex';
-                    }
-                } else {
-                    alert("စကားဝှက် မှားယွင်းနေပါသည်။");
+                if (adminModal) {
+                    adminModal.style.display = 'flex';
                 }
+            }
+
+            if (adminSubmitBtn) {
+                adminSubmitBtn.addEventListener('click', () => {
+                    const password = adminPassInput.value;
+                    if (password === "Phy0MinTh@W146980") {
+                        if (visitorCounterElement) {
+                            visitorCounterElement.style.display = 'flex';
+                        }
+                        adminModal.style.display = 'none';
+                    } else {
+                        alert("Hey, What are you doing with my admin website");
+                        adminPassInput.value = '';
+                    }
+                });
+            }
+
+            if (adminCancelBtn) {
+                adminCancelBtn.addEventListener('click', () => {
+                    adminModal.style.display = 'none';
+                });
             }
         });
     </script>

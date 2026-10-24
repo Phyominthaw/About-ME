@@ -346,7 +346,7 @@ export default function Home() {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full bg-[#0b0f19]/70 backdrop-blur-xl border-b border-slate-800/80 z-50">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#" id="secret-trigger"
+          <a href="/" id="secret-trigger"
             className="text-xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 cursor-pointer select-none">
             About Me
           </a>

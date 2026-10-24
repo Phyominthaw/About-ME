@@ -2,13 +2,28 @@
 
 import { useState, useEffect } from 'react';
 
+// Define Card Type for TypeScript
+interface CardItem {
+  id: number;
+  src: string;
+  alt: string;
+  style: {
+    transform: string;
+    zIndex: number;
+    filter: string;
+    opacity: number;
+    transition?: string;
+  };
+  isTop?: boolean;
+}
+
 export default function Home() {
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
   const [adminPassInput, setAdminPassInput] = useState('');
   const [showVisitorCounter, setShowVisitorCounter] = useState(false);
 
-  // Card Stack State with exact initial transforms
-  const [cards, setCards] = useState([
+  // Card Stack State with typed interface
+  const [cards, setCards] = useState<CardItem[]>([
     {
       id: 1,
       src: 'assets/images/3764.jpg',
@@ -44,9 +59,6 @@ export default function Home() {
 
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Anniversary Counter State
-  const [anniversaryText, setAnniversaryText] = useState('Loading...');
-
   useEffect(() => {
     // Check URL for ?admin=true
     const params = new URLSearchParams(window.location.search);
@@ -66,10 +78,10 @@ export default function Home() {
 
     reveals.forEach(reveal => revealOnScroll.observe(reveal));
 
-    // Anniversary Live Counter Logic
-    const startDate = new Date('2026-10-22T17:15:00+06:30');
+    // Anniversary Live Counter Logic (Fixed Date arithmetic types)
+    const startDate = new Date('2026-10-22T17:15:00+06:30').getTime();
     const interval = setInterval(() => {
-      const now = new Date();
+      const now = new Date().getTime();
       const diff = now - startDate;
       const counterElement = document.getElementById('anniversary-counter');
 
@@ -88,13 +100,13 @@ export default function Home() {
       counterElement.textContent = `${days} Days : ${hours} Hours : ${minutes} Mins : ${seconds} Secs`;
     }, 1000);
 
-    // Secret Triple-Click Feature for "About Me" navbar trigger
+    // Secret Triple-Click Feature for "About Me" navbar trigger (Typed variables)
     const secretTrigger = document.getElementById('secret-trigger');
     const secretSection = document.getElementById('secret-section');
     let clickCount = 0;
-    let clickTimer = null;
+    let clickTimer: NodeJS.Timeout | null = null;
 
-    const handleSecretClick = (e) => {
+    const handleSecretClick = (e: MouseEvent) => {
       e.preventDefault();
       clickCount++;
 
@@ -118,18 +130,18 @@ export default function Home() {
     };
 
     if (secretTrigger) {
-      secretTrigger.addEventListener('click', handleSecretClick);
+      secretTrigger.addEventListener('click', handleSecretClick as EventListener);
     }
 
     return () => {
       clearInterval(interval);
       if (secretTrigger) {
-        secretTrigger.removeEventListener('click', handleSecretClick);
+        secretTrigger.removeEventListener('click', handleSecretClick as EventListener);
       }
     };
   }, []);
 
-  // Exact Card Swap Animation Handler
+  // Exact Card Swap Animation Handler (Fixed TypeScript types)
   const handleCardSwap = () => {
     if (isAnimating) return;
     setIsAnimating(true);
@@ -138,15 +150,19 @@ export default function Home() {
       const newCards = [...prevCards];
       const topCard = newCards[newCards.length - 1];
 
-      topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-      topCard.style.transform = 'translateY(-140%) rotate(15deg) scale(1.05)';
-      topCard.style.opacity = '0';
+      if (topCard) {
+        topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+        topCard.style.transform = 'translateY(-140%) rotate(15deg) scale(1.05)';
+        topCard.style.opacity = 0;
+      }
 
       setTimeout(() => {
         const popped = newCards.pop();
-        newCards.unshift(popped);
+        if (popped) {
+          newCards.unshift(popped);
+        }
 
-        const updatedCards = newCards.map((card, index) => {
+        const updatedCards: CardItem[] = newCards.map((card, index) => {
           const reverseIndex = newCards.length - 1 - index;
           let transform = '';
           let zIndex = 10;
@@ -194,12 +210,12 @@ export default function Home() {
     });
   };
 
-  // Touch handlers for mobile swipe
+  // Touch handlers for mobile swipe (Typed event parameters)
   let startY = 0;
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     startY = e.touches[0].clientY;
   };
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent) => {
     const currentY = e.touches[0].clientY;
     const diffY = startY - currentY;
     if (Math.abs(diffY) > 30) {
@@ -276,7 +292,6 @@ export default function Home() {
           box-shadow: 0 10px 25px -10px rgba(6, 182, 212, 0.12);
         }
 
-        /* Custom Hover Zoom & Glow Effect for Secret Section Media Cards */
         .secret-media-card {
           transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
           will-change: transform;
@@ -411,7 +426,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECRET SECTION with Hover Zoom & Glow Effect */}
+      {/* SECRET SECTION */}
       <section
         id="secret-section"
         className="py-20 px-6 max-w-5xl mx-auto border-t border-cyan-500/40 bg-cyan-950/20 backdrop-blur-xl rounded-3xl my-10 shadow-2xl transition-all duration-700"

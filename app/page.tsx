@@ -141,7 +141,7 @@ export default function Home() {
     };
   }, []);
 
-  // Exact Card Swap Animation Handler (Fixed TypeScript types)
+  // Exact Card Swap Animation Handler
   const handleCardSwap = () => {
     if (isAnimating) return;
     setIsAnimating(true);

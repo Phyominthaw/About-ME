@@ -210,7 +210,7 @@ export default function Home() {
     });
   };
 
-  // Touch handlers for mobile swipe (Typed event parameters)
+  // Touch handlers for mobile swipe 
   let startY = 0;
   const handleTouchStart = (e: React.TouchEvent) => {
     startY = e.touches[0].clientY;

@@ -1,6 +1,6 @@
 # 🚀 Phyo Min Thaw (Kura) — Portfolio
 
-> Frontend Developer & Development Lead based in Yangon, Myanmar[cite: 1, 2]. Passionate about web development, software engineering, and modern technology[cite: 1].
+> Frontend Developer & Development Lead based in Myanmar. Passionate about web development, software engineering, and modern technology.
 
 ---
 
@@ -29,5 +29,5 @@ Check out the live portfolio: [kuracode.vercel.app](https://kuracode.vercel.app)
 
 ## 📫 Connect with Me
 
-* **Telegram:** [@matheus_kura](https://t.me/matheus_kura)[cite: 2]
-* **Email:** phyominthaw323@gmail.com[cite: 2]
+* **Telegram:** [@matheus_kura](https://t.me/matheus_kura)
+* **Email:** phyominthaw323@gmail.com

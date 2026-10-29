@@ -370,7 +370,7 @@ export default function Home() {
           <a href="/" id="secret-trigger"
             className="text-xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-[#A78BFA] cursor-pointer select-none"
             title="Try clicking 3 times">
-            About Me ✨
+            About Me
           </a>
           {/* Desktop Menu */}
           <div className="space-x-8 text-sm font-medium hidden md:flex items-center text-[#A1A1AA]">

@@ -421,7 +421,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2.5 bg-zinc-900/90 border border-[#818CF8]/40 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md">
               <span className="text-[#F9A8D4] text-base animate-bounce">💡</span>
               <a href="#contact" className="text-xs sm:text-sm font-medium text-zinc-300 hover:text-[#818CF8] transition">
-                Top Navbar ကို 3 ချက်ဆက်တိုက် နှိပ်ကြည့်ပါ <span className="text-[#818CF8]">↓</span>
+                Top Navbar (About Me) ကို 3 ချက်ဆက်တိုက် နှိပ်ကြည့်ပါ <span className="text-[#818CF8]">↑</span>
               </a>
             </div>
 

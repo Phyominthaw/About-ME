@@ -157,7 +157,7 @@ export default function Home() {
       if (topCard) {
         topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
         topCard.style.transform = 'translateY(-140%) rotate(15deg) scale(1.05)';
-        topCard.style.opacity = '0';
+        topCard.style.opacity = 0;
       }
 
       setTimeout(() => {

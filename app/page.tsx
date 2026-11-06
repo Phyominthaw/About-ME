@@ -22,6 +22,10 @@ export default function Home() {
   const [showVisitorCounter, setShowVisitorCounter] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // 3D Carousel States
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
+  const [activeLightboxImage, setActiveLightboxImage] = useState<string | null>(null);
+
   // Card Stack State with typed interface
   const [cards, setCards] = useState<CardItem[]>([
     {
@@ -157,7 +161,7 @@ export default function Home() {
       if (topCard) {
         topCard.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
         topCard.style.transform = 'translateY(-140%) rotate(15deg) scale(1.05)';
-        topCard.style.opacity = 0;
+        topCard.style.opacity = '0';
       }
 
       setTimeout(() => {
@@ -324,7 +328,83 @@ export default function Home() {
           box-shadow: 0 12px 35px -5px rgba(249, 168, 212, 0.4), 0 0 20px rgba(167, 139, 250, 0.3);
           z-index: 10;
         }
+
+        /* Optimized Mobile Responsive 3D Carousel CSS */
+        .carousel-3d-container {
+          perspective: 1200px;
+          width: 100%;
+          height: 380px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+
+        .carousel-3d {
+          width: 240px;
+          height: 320px;
+          position: absolute;
+          transform-style: preserve-3d;
+          animation: rotate3dCarousel 38s linear infinite;
+        }
+
+        .carousel-3d.paused {
+          animation-play-state: paused;
+        }
+
+        .carousel-3d:hover {
+          animation-play-state: paused;
+        }
+
+        @keyframes rotate3dCarousel {
+          0% { transform: rotateY(0deg); }
+          100% { transform: rotateY(360deg); }
+        }
+
+        .carousel-item {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          transform-origin: center center;
+          border-radius: 1.5rem;
+          overflow: hidden;
+          border: 2px solid rgba(249, 168, 212, 0.5);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          background: #18181b;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          cursor: pointer;
+        }
+
+        @media (max-width: 640px) {
+          .carousel-3d-container {
+            height: 320px;
+          }
+          .carousel-3d {
+            width: 180px;
+            height: 240px;
+          }
+        }
       `}</style>
+
+      {/* Lightbox Modal */}
+      {activeLightboxImage && (
+        <div
+          className="fixed inset-0 bg-zinc-950/90 backdrop-blur-lg flex items-center justify-center z-50 p-4 cursor-pointer"
+          onClick={() => setActiveLightboxImage(null)}
+        >
+          <div className="relative max-w-3xl w-full max-h-[85vh] flex flex-col items-center">
+            <img
+              src={activeLightboxImage}
+              alt="Enlarged Memory"
+              className="max-h-[75vh] w-auto object-contain rounded-2xl border border-[#F9A8D4]/50 shadow-2xl"
+            />
+            <p className="text-xs text-[#F9A8D4] mt-4 tracking-wider">Tap anywhere to close ♡</p>
+          </div>
+        </div>
+      )}
 
       {/* Custom Password Modal for Admin */}
       {isAdminModalOpen && (
@@ -472,7 +552,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECRET SECTION (Soft Pink & Lavender Aesthetic) */}
+      {/* SECRET SECTION (Soft Pink & Lavender Aesthetic with Mobile-Only Pause Control) */}
       <section
         id="secret-section"
         className="py-20 px-6 max-w-5xl mx-auto border-t border-[#F9A8D4]/40 bg-purple-950/20 backdrop-blur-xl rounded-3xl my-10 shadow-2xl transition-all duration-700"
@@ -486,37 +566,63 @@ export default function Home() {
           <div className="w-24 h-1 bg-gradient-to-r from-[#F9A8D4] to-[#A78BFA] mx-auto mt-3 rounded-full"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-center mb-12">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="secret-media-card rounded-2xl overflow-hidden border border-[#F9A8D4]/40 shadow-lg relative bg-black cursor-pointer">
-              <video src="assets/videos/video1.mp4" autoPlay loop muted playsInline className="w-full h-48 object-cover"></video>
-            </div>
-            <div className="secret-media-card rounded-2xl overflow-hidden border border-[#F9A8D4]/40 shadow-lg cursor-pointer">
-              <img src="assets/images/photo2.jpg" alt="Special Photo 2" className="w-full h-48 object-cover" />
-            </div>
-            <div className="secret-media-card rounded-2xl overflow-hidden border border-[#F9A8D4]/40 shadow-lg relative bg-black cursor-pointer">
-              <video src="assets/videos/video2.mp4" autoPlay loop muted playsInline className="w-full h-48 object-cover"></video>
-            </div>
-            <div className="secret-media-card rounded-2xl overflow-hidden border border-[#F9A8D4]/40 shadow-lg cursor-pointer">
-              <img src="assets/images/photo8.png" alt="Special Photo 4" className="w-full h-48 object-cover" />
-            </div>
+        {/* 3D Carousel Showcase with Mobile-Only Pause/Play Control */}
+        <div className="mb-16">
+          {/* md:hidden ทำให้ปุ่มนี้ပေါ်မှာ Mobile view (ဖုန်း screen) မှာပဲ ပေါ်လာစေပါတယ် */}
+          <div className="md:hidden flex items-center justify-between max-w-xs mx-auto mb-6 px-4 py-2 bg-zinc-900/70 border border-[#F9A8D4]/30 rounded-full backdrop-blur-md">
+            <span className="text-xs text-[#F9A8D4] italic">✨ 3D Memories Gallery</span>
+            <button
+              onClick={() => setIsCarouselPaused(v => !v)}
+              className="text-xs font-semibold bg-[#F9A8D4]/20 hover:bg-[#F9A8D4]/30 text-[#F9A8D4] px-3 py-1 rounded-full transition cursor-pointer"
+            >
+              {isCarouselPaused ? '▶ Play' : '⏸ Pause'}
+            </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div className="secret-media-card rounded-xl overflow-hidden border border-[#A78BFA]/30 shadow-md cursor-pointer">
-              <img src="assets/images/photo3.jpg" alt="Extra 1" className="w-full h-32 object-cover" />
-            </div>
-            <div className="secret-media-card rounded-xl overflow-hidden border border-[#A78BFA]/30 shadow-md cursor-pointer">
-              <img src="assets/images/photo5.jpg" alt="Extra 2" className="w-full h-32 object-cover" />
-            </div>
-            <div className="secret-media-card rounded-xl overflow-hidden border border-[#A78BFA]/30 shadow-md cursor-pointer">
-              <img src="assets/images/photo6.jpg" alt="Extra 3" className="w-full h-32 object-cover" />
-            </div>
-            <div className="secret-media-card rounded-xl overflow-hidden border border-[#A78BFA]/30 shadow-md cursor-pointer">
-              <img src="assets/images/photo7.jpg" alt="Extra 4" className="w-full h-32 object-cover" />
-            </div>
-            <div className="secret-media-card rounded-xl overflow-hidden border border-[#A78BFA]/30 shadow-md col-span-2 cursor-pointer">
-              <img src="assets/images/photo9.jpg" alt="Extra 5" className="w-full h-32 object-cover" />
+          <div className="carousel-3d-container">
+            <div className={`carousel-3d ${isCarouselPaused ? 'paused' : ''}`}>
+              {/* Item 1 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(0deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo2.jpg')}>
+                <img src="assets/images/photo2.jpg" alt="Memory 1" className="w-full h-full object-cover" />
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Precious Smile ♡</p>
+                </div>
+              </div>
+              {/* Item 2 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(60deg) translateZ(240px)' }}>
+                <video src="assets/videos/video1.mp4" autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover"></video>
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Cute Moment ✨</p>
+                </div>
+              </div>
+              {/* Item 3 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(120deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo8.png')}>
+                <img src="assets/images/photo8.png" alt="Memory 3" className="w-full h-full object-cover" />
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Always Gorgeous 🤍</p>
+                </div>
+              </div>
+              {/* Item 4 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(180deg) translateZ(240px)' }}>
+                <video src="assets/videos/video2.mp4" autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover"></video>
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Sweet Vibes 🌸</p>
+                </div>
+              </div>
+              {/* Item 5 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(240deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo5.jpg')}>
+                <img src="assets/images/photo5.jpg" alt="Memory 5" className="w-full h-full object-cover" />
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Radiant Shine ✨</p>
+                </div>
+              </div>
+              {/* Item 6 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(300deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo9.jpg')}>
+                <img src="assets/images/photo9.jpg" alt="Memory 6" className="w-full h-full object-cover" />
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">My Favorite View ♡</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

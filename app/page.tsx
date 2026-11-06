@@ -331,7 +331,7 @@ export default function Home() {
 
         /* Optimized Mobile Responsive 3D Carousel CSS */
         .carousel-3d-container {
-          perspective: 1200px;
+          perspective: 1300px;
           width: 100%;
           height: 380px;
           display: flex;
@@ -345,7 +345,7 @@ export default function Home() {
           height: 320px;
           position: absolute;
           transform-style: preserve-3d;
-          animation: rotate3dCarousel 38s linear infinite;
+          animation: rotate3dCarousel 40s linear infinite;
         }
 
         .carousel-3d.paused {
@@ -552,7 +552,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECRET SECTION (Soft Pink & Lavender Aesthetic with Mobile-Only Pause Control) */}
+      {/* SECRET SECTION */}
       <section
         id="secret-section"
         className="py-20 px-6 max-w-5xl mx-auto border-t border-[#F9A8D4]/40 bg-purple-950/20 backdrop-blur-xl rounded-3xl my-10 shadow-2xl transition-all duration-700"
@@ -566,9 +566,8 @@ export default function Home() {
           <div className="w-24 h-1 bg-gradient-to-r from-[#F9A8D4] to-[#A78BFA] mx-auto mt-3 rounded-full"></div>
         </div>
 
-        {/* 3D Carousel Showcase with Mobile-Only Pause/Play Control */}
+        {/* 3D Carousel Showcase */}
         <div className="mb-16">
-          {/* md:hidden ทำให้ปุ่มนี้ပေါ်မှာ Mobile view (ဖုန်း screen) မှာပဲ ပေါ်လာစေပါတယ် */}
           <div className="md:hidden flex items-center justify-between max-w-xs mx-auto mb-6 px-4 py-2 bg-zinc-900/70 border border-[#F9A8D4]/30 rounded-full backdrop-blur-md">
             <span className="text-xs text-[#F9A8D4] italic">✨ 3D Memories Gallery</span>
             <button
@@ -582,45 +581,52 @@ export default function Home() {
           <div className="carousel-3d-container">
             <div className={`carousel-3d ${isCarouselPaused ? 'paused' : ''}`}>
               {/* Item 1 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(0deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo2.jpg')}>
+              <div className="carousel-item" style={{ transform: 'rotateY(0deg) translateZ(260px)' }} onClick={() => setActiveLightboxImage('assets/images/photo2.jpg')}>
                 <img src="assets/images/photo2.jpg" alt="Memory 1" className="w-full h-full object-cover" />
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">Precious Smile ♡</p>
                 </div>
               </div>
               {/* Item 2 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(60deg) translateZ(240px)' }}>
+              <div className="carousel-item" style={{ transform: 'rotateY(51.4deg) translateZ(260px)' }}>
                 <video src="assets/videos/video1.mp4" autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover"></video>
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">Cute Moment ✨</p>
                 </div>
               </div>
               {/* Item 3 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(120deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo8.png')}>
+              <div className="carousel-item" style={{ transform: 'rotateY(102.8deg) translateZ(260px)' }} onClick={() => setActiveLightboxImage('assets/images/photo8.png')}>
                 <img src="assets/images/photo8.png" alt="Memory 3" className="w-full h-full object-cover" />
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">Always Gorgeous 🤍</p>
                 </div>
               </div>
               {/* Item 4 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(180deg) translateZ(240px)' }}>
+              <div className="carousel-item" style={{ transform: 'rotateY(154.2deg) translateZ(260px)' }}>
                 <video src="assets/videos/video2.mp4" autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover"></video>
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">Sweet Vibes 🌸</p>
                 </div>
               </div>
               {/* Item 5 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(240deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo5.jpg')}>
+              <div className="carousel-item" style={{ transform: 'rotateY(205.6deg) translateZ(260px)' }} onClick={() => setActiveLightboxImage('assets/images/photo5.jpg')}>
                 <img src="assets/images/photo5.jpg" alt="Memory 5" className="w-full h-full object-cover" />
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">Radiant Shine ✨</p>
                 </div>
               </div>
               {/* Item 6 */}
-              <div className="carousel-item" style={{ transform: 'rotateY(300deg) translateZ(240px)' }} onClick={() => setActiveLightboxImage('assets/images/photo9.jpg')}>
+              <div className="carousel-item" style={{ transform: 'rotateY(257deg) translateZ(260px)' }} onClick={() => setActiveLightboxImage('assets/images/photo9.jpg')}>
                 <img src="assets/images/photo9.jpg" alt="Memory 6" className="w-full h-full object-cover" />
                 <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
                   <p className="text-[11px] text-[#F9A8D4] font-medium">My Favorite View ♡</p>
+                </div>
+              </div>
+              {/* Item 7 */}
+              <div className="carousel-item" style={{ transform: 'rotateY(308.4deg) translateZ(260px)' }}>
+                <video src="assets/videos/video_1.mp4" autoPlay loop muted playsInline preload="metadata" className="w-full h-full object-cover"></video>
+                <div className="absolute bottom-0 inset-x-0 bg-zinc-950/80 p-2 text-center">
+                  <p className="text-[11px] text-[#F9A8D4] font-medium">Special Memory ♡</p>
                 </div>
               </div>
             </div>
